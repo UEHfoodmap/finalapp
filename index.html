@@ -55,6 +55,80 @@ box-sizing: border-box;
     font-size:11px !important;
   }
 }
+@media (max-width: 480px){
+  .card .body{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+  .card .name,
+  .card .addr{
+    white-space: normal;
+    word-break: break-word;
+    width: 96%;          /* Cho chữ chiếm gần hết chiều ngang */
+    margin-left: auto;   /* Căn giữa nội dung chữ */
+    margin-right: auto;
+  }
+}
+</style>
+<style>
+/* === FINAL FIX: remove any bar under hero image === */
+.hero{ overflow:hidden !important; background:transparent !important; }
+.hero-viewport{ display:block !important; line-height:0 !important; background:transparent !important; }
+.hero-track, .stage .hero-slide{ height:100% !important; }
+.stage .hero-slide{ background:transparent !important; }
+.stage .hero-slide img{ width:100% !important; height:100% !important; display:block !important; object-fit:cover !important; }
+/* kill any background/pill look behind dots */
+.pager{ background:none !important; box-shadow:none !important; border:none !important; border-radius:0 !important; padding:0 !important; }
+.pager .dot{ background:#bbb !important; border:none !important; }
+.pager .dot.active{ background:#fff !important; }
+</style>
+<style>
+@media (max-width: 430px){
+  section{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .hero-viewport{
+    margin-bottom: 0 !important;
+  }
+  .searchBar{
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    transform: scale(0.95) !important;
+  }
+  .campus-row{
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  .card{
+    transform: none !important;
+  }
+}
+</style>
+<style>
+/* === Card fit & price at right === */
+/* Make card height auto and tighten inner spacing */
+.card{ height:auto !important; }
+.card .body{ padding:12px 14px !important; }
+.card .name{ margin:0 0 4px !important; }
+.card .meta{ margin:0 !important; }
+
+/* Stretch pill bar across image bottom; push price to the right */
+.pillwrap{
+  left:10px !important;
+  right:10px !important;   /* allow full width */
+  width:auto !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:flex-start !important;
+}
+.pillwrap .pill:last-child{ margin-left:auto !important; } /* price → right */
+
+/* Mobile tweaks */
+@media (max-width: 480px){
+  .card .body{ padding:10px 12px !important; }
+  .thumb img{ height:140px !important; } /* slightly shorter so card fits tighter */
+}
 </style>
 <style>
 /* === FINAL MOBILE FONT SCALE (force override) === */
@@ -214,16 +288,17 @@ flex:0 0 auto;
 
 /* Tiêu đề & khối “stage” */
 .titlebar h1{font-size:26px; margin:14px 0 8px;}
-.stage{padding:16px 12px 22px; border-radius:22px;}
+.stage{padding:10px 10px 12px !important; border-radius:22px;}
 
-/* Hero */
-.hero-viewport{max-height:220px; aspect-ratio:16/9;}
+.hero-viewport{max-height:260px !important; aspect-ratio:16/9 !important;}
+.hero{
+  margin: 0 -1px 10px !important; /* reduce horizontal spread */
+}
 .navbtn{width:36px;height:36px;border-radius:12px;}
 .hero-cap{font-size:16px; padding:6px 10px;}
 .pager{bottom:6px;}
 
-/* Search */
-.search input{height:44px; font-size:15px; padding:0 48px;}
+.search input{height:40px !important; font-size:14px !important; padding:0 44px !important;}
 .search .icon{left:14px;}
 
 /* Campus pills */
@@ -461,6 +536,67 @@ opacity: 1;
 .r-meta .r-addr{color:var(--c-mute);font-size:18px;margin-top:6px}
 .r-score{margin-left:auto;background:var(--c-lemon);border:3px solid rgba(36,48,63,.18);border-radius:18px;padding:10px 16px;font-weight:900;display:inline-flex;align-items:center;gap:8px}
 
+/* === RANKING — restore compact MOBILE layout (≤480px) === */
+@media (max-width: 480px){
+  .rank-roll{
+    display: grid !important;
+    gap: 12px !important;
+    margin-top: 8px !important;
+  }
+  .r-item{
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 14px !important;
+    border-radius: 18px !important;
+  }
+  .r-no{
+    min-width: 56px !important;
+    height: 56px !important;
+    border-radius: 16px !important;
+    font: 900 22px "Baloo 2", cursive !important;
+  }
+  .r-photo{
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
+  }
+  .r-meta{
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  .r-meta .r-name{
+    font: 900 18px "Baloo 2", cursive !important;
+    line-height: 1.15 !important;
+  }
+  .r-meta .r-addr{
+    font-size: 13px !important;
+    margin-top: 4px !important;
+    color: var(--c-mute) !important;
+  }
+  .r-score{
+    margin-left: auto !important;
+    font-size: 14px !important;
+    padding: 8px 12px !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* --- Custom: compact rankCard for #4+ --- */
+.rankCard{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  white-space: nowrap;
+}
+.rankCard .rankNum{
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+}
+
 /* MAP — UI tĩnh như ảnh mẫu (không dùng ảnh map cũ) */
 .map-hero{background:linear-gradient(180deg,#FFEAD5,#FFF6E3);border:3px solid rgba(36,48,63,.18);border-radius:22px;box-shadow:var(--shadow-soft);padding:22px 22px 12px;margin-bottom:0}
 .map-board{position:relative;height:460px;border-radius:18px;border:3px dashed rgba(36,48,63,.25);display:grid;place-items:center;background:#eee url('map.jpg') center/cover no-repeat;overflow:hidden;margin-bottom:28px}
@@ -525,7 +661,7 @@ margin-bottom:8px;
 .auth{opacity:0;transition:opacity .25s ease}
 .auth.show{opacity:1}
 .auth .auth-card{transform:translateY(8px) scale(.985);opacity:0;transition:transform .28s ease,opacity .28s ease;will-change:transform,opacity}
-.auth.show .auth-card{transform:translateY(0) scale(1);opacity:1}
+.auth.show .auth-card{trasaonsform:translateY(0) scale(1);opacity:1}
 .auth.closing{opacity:0}
 .auth.closing .auth-card{transform:translateY(6px) scale(.985);opacity:0}
 
@@ -628,12 +764,12 @@ gap:8px;
 <style>
 /* === FINAL OVERRIDE: 2-column cards on small phones === */
 @media (max-width: 480px){
-  /* Grid becomes 2 columns (override earlier 1-col rule) */
-  .stage .grid, #cards.grid{
-    display:grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-    justify-content: center !important;
+  .stage .grid, #cards.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 22px; /* equal vertical and horizontal spacing */
+    justify-content: center;
+    padding: 0 12px; /* ensures even spacing left-right */
   }
   /* Card sizing */
   .stage .card, #cards .card{
@@ -642,6 +778,7 @@ gap:8px;
     border-radius: 12px !important;
     padding: 8px !important;
     box-shadow: 0 3px 6px rgba(0,0,0,.08) !important;
+    margin: 0 !important;
   }
   /* Thumbnail */
   .stage .thumb img, #cards .thumb img{
@@ -730,6 +867,92 @@ gap:8px;
 .nav-drawer.show {
   display: flex !important;
 }
+</style>
+<style>
+/* === Mobile layout: campus pills — 4 on top, 3 centered below === */
+@media (max-width: 430px){
+  .campus-row,
+  .campusBar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 14px 10px !important; /* tăng khoảng cách giữa các nút */
+    margin-bottom: 20px !important; /* tạo thêm khoảng trống giữa campusBar và grid bên dưới */
+    padding-bottom: 4px !important;
+  }
+  .campus-row .camp-pill,
+  .campusBar .camp-pill {
+    box-sizing: border-box !important;
+    width: auto !important;
+    flex: 0 0 calc((100% - 3*10px)/4) !important; /* 4 per row */
+    max-width: calc((100% - 3*10px)/4) !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    padding: 8px 10px !important;
+  }
+}
+@media (max-width: 360px){
+  /* On extra-small phones: 3 per row, still centered */
+  .campus-row .camp-pill{
+    flex:0 0 calc((100% - 2*10px)/3) !important;
+    max-width:calc((100% - 2*10px)/3) !important;
+  }
+}
+</style>
+<style>
+/* === Adjust card spacing and size for mobile === */
+@media (max-width: 430px){
+  .card{
+    transform: none !important;
+    margin: 0 !important;
+  }
+  .cards-container{
+    gap: 14px !important;
+    padding: 0 12px !important;
+  }
+}
+</style>
+<style>
+/* === Fix: remove thin bottom seam under hero image === */
+.hero{overflow:hidden !important;}
+.hero-viewport, .hero-track, .stage .hero-slide{height:100% !important;}
+.stage .hero-slide{background:transparent !important;} /* avoid gradient peeking */
+.stage .hero-slide img{display:block !important; width:100% !important; height:100% !important; object-fit:cover !important;}
+</style>
+<style>
+/* === FINAL MOBILE OVERRIDE: widen text area inside cards (≤480px) === */
+@media (max-width: 480px){
+  .stage .card .body, #cards .card .body{
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  .stage .card .name, #cards .card .name,
+  .stage .card .meta, #cards .card .meta{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+}
+</style>
+</style>
+<style>
+/* === Unify header: one solid white band, no inner box === */
+.nav{
+  background: #fff !important;
+  backdrop-filter: none !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important; /* single divider line */
+  box-shadow: none !important;
+}
+.nav .container,
+.nav-wrap{
+  background: transparent !important;   /* remove inner white box */
+  border: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+/* Make sure the page background starts right below the header */
+body{ background: #FAD0E6; }
 </style>
 </head>
 <body>
@@ -998,6 +1221,9 @@ addEventListener('hashchange',navigate);navigate();
     // Lấy tất cả item top-level trong .tabs (a hoặc button có .tab)
     const items = tabsWrap.querySelectorAll('.tab');
     items.forEach(el=>{
+      // Bỏ qua các mục bị ẩn bằng inline style (display:none)
+      if (el.style && el.style.display === 'none') return;
+
       const text = el.textContent.trim().replace(/\s*▾\s*$/,'');
       const href = el.getAttribute('href');
       const a = document.createElement('a');
@@ -1058,6 +1284,8 @@ const DATA=[
 {id:16,slug:'sinh-to-hem',name:'Sinh tố hẻm',addr:'394 Hoà Hảo',dist:'400m',price:'10-25k',rate:4.8,cat:'drink',campus:'B'},
 {id:17,slug:'bun-dau-non-la',name:'Bún đậu Nón Lá',addr:'188 Nguyễn Tri Phương',dist:'70m',price:'40-70k',rate:4.6,cat:'bun',campus:'B'}
 ];
+// Shuffle DATA mỗi khi tải trang
+DATA.sort(() => Math.random() - 0.5);
 const imgOf=s=>`${s}.jpg`;
 // Reviews map: load from reviews.json; fallback to inline <script id="reviewsInline"> if fetch fails
 let REVIEWS = {};
@@ -1082,8 +1310,9 @@ tryInline();
 });
 })();
 
-/* Hero */
-const TOP5=[...DATA].sort((a,b)=>b.rate-a.rate).slice(0,5);
+// Top 10 by rating → pick random 5 and shuffle order each visit
+const TOP10 = [...DATA].sort((a,b)=>b.rate-a.rate).slice(0,10);
+const TOP5  = [...TOP10].sort(()=>Math.random()-0.5).slice(0,5);
 const heroTrack=document.getElementById('heroTrack'),heroPager=document.getElementById('heroPager');
 TOP5.forEach((x,i)=>{heroTrack.insertAdjacentHTML('beforeend',`<div class="hero-slide"><img src="${imgOf(x.slug)}" alt="Top ${i+1}: ${x.name}" onerror="if(!this.dataset.fbk){this.dataset.fbk=1;this.src=this.src.replace('.jpg','.png');}"><div class="hero-cap">${x.name}</div></div>`);heroPager.insertAdjacentHTML('beforeend',`<button class="dot${i?'':' active'}" data-idx="${i}"></button>`);});
 let heroIdx=0;function updateHero(){heroTrack.style.transform=`translateX(-${heroIdx*100}%)`;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===heroIdx));}
@@ -1125,10 +1354,31 @@ window.addEventListener('mousemove', onMove);
 
 /* Grid + Search */
 const grid=document.getElementById('cards'),btnMore=document.getElementById('btnMore');let currentCat='all',searchQuery='',expanded=false;
+
+function getPageSize(){
+  try{ return window.matchMedia('(max-width: 480px)').matches ? 4 : 8; }catch(_){ return 4; }
+}
 function formatCard(it){const price=it.price?.trim()?it.price:'—';return `<article class="card" data-id="${it.id}"><div class="thumb"><img src="${imgOf(it.slug)}" alt="${it.name}" loading="lazy" onerror="if(!this.dataset.fbk){this.dataset.fbk=1;this.src=this.src.replace('.jpg','.png');}"/><span class="rating">★ ${it.rate}</span><div class="pillwrap"><span class="pill">${it.dist}</span><span class="pill">${price}</span></div></div><div class="body"><div class="name">${it.name}</div><div class="meta">${it.addr}</div></div></article>`;}
-function renderGrid(){const list=DATA.filter(x=>(currentCat==='all'||x.cat===currentCat)&&((x.name+' '+x.addr).toLowerCase().includes(searchQuery)));grid.innerHTML='';list.forEach((it,idx)=>{grid.insertAdjacentHTML('beforeend',formatCard(it));if(!expanded&&idx>=8)grid.lastElementChild.classList.add('hidden');});btnMore.hidden=list.length<=8;btnMore.textContent=expanded?'Thu gọn':'Xem thêm';}
-btnMore.onclick=()=>{expanded=!expanded;grid.querySelectorAll('.card').forEach((c,i)=>c.classList.toggle('hidden',!expanded&&i>=8));btnMore.textContent=expanded?'Thu gọn':'Xem thêm';if(!expanded)scrollTo({top:document.getElementById('home').offsetTop-60,behavior:'smooth'})}
+function renderGrid(){
+  const list=DATA.filter(x=>(currentCat==='all'||x.cat===currentCat)&&((x.name+' '+x.addr).toLowerCase().includes(searchQuery)));
+  grid.innerHTML='';
+  const pageSize = getPageSize();
+  list.forEach((it,idx)=>{
+    grid.insertAdjacentHTML('beforeend',formatCard(it));
+    if(!expanded && idx >= pageSize) grid.lastElementChild.classList.add('hidden');
+  });
+  btnMore.hidden = list.length <= pageSize;
+  btnMore.textContent = expanded ? 'Thu gọn' : 'Xem thêm';
+}
+btnMore.onclick = () => {
+  const pageSize = getPageSize();
+  expanded = !expanded;
+  grid.querySelectorAll('.card').forEach((c,i)=>c.classList.toggle('hidden', !expanded && i >= pageSize));
+  btnMore.textContent = expanded ? 'Thu gọn' : 'Xem thêm';
+  if(!expanded) scrollTo({top: document.getElementById('home').offsetTop - 60, behavior:'smooth'});
+};
 const searchInput=document.getElementById('search');let t=null;searchInput.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>{searchQuery=searchInput.value.trim().toLowerCase();expanded=false;renderGrid();},150);});renderGrid();
+window.addEventListener('resize', ()=>{ if(!expanded) renderGrid(); });
 /* home dropdown */
 const tabHomeBtn=document.getElementById('tabHomeBtn'),homeMenu=document.getElementById('homeMenu');
 tabHomeBtn.addEventListener('click',(e)=>{e.stopPropagation();if(location.hash!=='#home')location.hash='#home';homeMenu.classList.toggle('open');});
@@ -1312,7 +1562,31 @@ grid.addEventListener('click',e=>{if(e.target.closest('.rating')){const card=e.t
 
 /* Ranking (#1 cao nhất) */
 const rankPodium=document.getElementById('rankPodium'),rankRoll=document.getElementById('rankRoll');
-function renderRank(){const top=[...DATA].sort((a,b)=>b.rate-a.rate).slice(0,5);const podium=[top[1],top[0],top[2]].filter(Boolean);const heights=[300,360,280],photoH=[170,200,150];rankPodium.innerHTML='';podium.forEach((r,i)=>{rankPodium.insertAdjacentHTML('beforeend',`<div class="p-tile tile-${i}" data-id="${r.id}" style="height:${heights[i]}px"><div class="p-head"><div class="medal">#${i===1?'1':(i===0?'2':'3')}</div></div><img class="p-photo" style="height:${photoH[i]}px" src="${imgOf(r.slug)}" alt="" onerror="if(!this.dataset.fbk){this.dataset.fbk=1;this.src=this.src.replace('.jpg','.png');}"><div class="p-body"><div style="font-weight:900">${r.name}</div><div class="star">⭐ ${r.rate}</div></div></div>`);});rankRoll.innerHTML='';top.slice(3).forEach((r,i)=>{rankRoll.insertAdjacentHTML('beforeend',`<div class="r-item" data-id="${r.id}"><div class="r-no">#${i+4}</div><img class="r-photo" src="${imgOf(r.slug)}" alt="" onerror="if(!this.dataset.fbk){this.dataset.fbk=1;this.src=this.src.replace('.jpg','.png');}"><div class="r-meta"><div class="r-name">${r.name}</div><div class="r-addr">${r.addr}</div></div><div class="r-score">⭐ ${r.rate}</div></div>`);});}
+function renderRank(){
+  const top=[...DATA].sort((a,b)=>b.rate-a.rate).slice(0,5);
+  const podium=[top[1],top[0],top[2]].filter(Boolean);
+  const heights=[300,360,280],photoH=[170,200,150];
+  rankPodium.innerHTML='';
+  podium.forEach((r,i)=>{
+    rankPodium.insertAdjacentHTML('beforeend',
+      `<div class="p-tile tile-${i}" data-id="${r.id}" style="height:${heights[i]}px"><div class="p-head"><div class="medal">#${i===1?'1':(i===0?'2':'3')}</div></div><img class="p-photo" style="height:${photoH[i]}px" src="${imgOf(r.slug)}" alt="" onerror="if(!this.dataset.fbk){this.dataset.fbk=1;this.src=this.src.replace('.jpg','.png');}"><div class="p-body"><div style="font-weight:900">${r.name}</div><div class="star">⭐ ${r.rate}</div></div></div>`
+    );
+  });
+  rankRoll.innerHTML='';
+  top.slice(3).forEach((r,i)=>{
+    rankRoll.insertAdjacentHTML('beforeend',
+      `<div class="r-item" data-id="${r.id}">
+         <div class="r-no">#${i+4}</div>
+         <img class="r-photo" src="${imgOf(r.slug)}" alt="" onerror="if(!this.dataset.fbk){this.dataset.fbk=1;this.src=this.src.replace('.jpg','.png');}">
+         <div class="r-meta">
+           <div class="r-name">${r.name}</div>
+           <div class="r-addr">${r.addr}</div>
+         </div>
+         <div class="r-score">⭐ ${r.rate}</div>
+       </div>`
+    );
+  });
+}
 renderRank();
 
 // Open detail from Ranking (podium & roll)
@@ -1638,8 +1912,25 @@ if(opened.has(code) || isAdmin){
 }
 });
 /* modal */
-const campModal=document.getElementById('campModal');const campClose=document.getElementById('campClose');const selCampus=document.getElementById('selCampus');campClose.onclick=()=>campModal.style.display='none';
-function openCampModal(code){selCampus.innerHTML=CAMPUSES.filter(c=>c.code!=='B').map(c=>`<option value="${c.code}" ${c.code===code?'selected':''}>${c.label}</option>`).join('');campModal.style.display='flex';}
+const campModal=document.getElementById('campModal');
+const campClose=document.getElementById('campClose');
+const selCampus=document.getElementById('selCampus');
+if (campClose) campClose.onclick = ()=>{
+  campModal.classList.remove('show');
+  campModal.style.display='none';
+};
+function openCampModal(code){
+  try{
+    selCampus.innerHTML = CAMPUSES
+      .filter(c=>c.code!=='B')
+      .map(c=>`<option value="${c.code}" ${c.code===code?'selected':''}>${c.label}</option>`)
+      .join('');
+  }catch(_){}
+  // Show modal robustly
+  campModal.classList.add('show');
+  campModal.style.display = 'flex';
+  campModal.style.opacity = '1';
+}
 document.getElementById('campPay').onclick=()=>{const code=selCampus.value;const cur=readUnlocked();if(!cur.includes(code))cur.push(code);writeUnlocked(cur);campModal.style.display='none';activeCampus=code;renderCampusPills();location.hash='#home';alert('Mở khoá cơ sở thành công (20.000đ)!');};
 
 /* Chat */
